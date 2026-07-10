@@ -1,0 +1,87 @@
+name: Test Hotfix Branch 🧯
+
+on:
+  pull_request:
+    branches:
+      -  hotfix
+    types: opened
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    name: Validate Hotfix ✅
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          ref: hotfix
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: "pyproject.toml"
+      
+      - name: Install UV
+        uses: astral-sh/setup-uv@v7
+
+      - name: Make Append Script Executable
+        shell: bash
+        run: chmod +x ${PWD}/.sh/scripts/append_requirements.sh
+
+      - name: Install YQ && Append Requirements to pre-commit Pytest Hook
+        id: append_requirements
+        shell: bash
+        run: sudo apt-get update && sudo apt-get install -y yq && ${PWD}/.sh/scripts/append_requirements.sh && sudo apt purge -y yq
+
+      - name: Install Pre-Commit
+        run: uv tool install pre-commit --with pre-commit-uv --force-reinstall
+
+      - name: Install Hooks
+        run: pre-commit install
+
+      - name: Run Tests
+        run: pre-commit run pytest --all-files
+
+      - name: Clean Up
+        run: pre-commit uninstall
+
+  increment:
+    needs: test
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v6
+        with:
+          ref: hotfix
+  
+      - name: Install UV
+        uses: astral-sh/setup-uv@v7
+      
+      - name: Dry Run Version Increment
+        run: |
+          uv version --bump patch --bump rc --dry-run
+
+      - name: Version Increment
+        run: |
+          uv version --bump patch --bump rc
+
+      - name: Verify Version Changed
+        run: git diff --exit-code pyproject.toml || echo "Version updated successfully"
+
+      - name: Increment Release Candidate Version
+        id: version
+        shell: bash
+        run: |
+          VERSION=$( uv version)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Commit & Push Version Change
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          branch: hotfix
+          commit_message: "chore: added patch; bump rc version to ${{ steps.version.outputs.version }}"
+          file_pattern: pyproject.toml

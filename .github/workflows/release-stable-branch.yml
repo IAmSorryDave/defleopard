@@ -1,0 +1,68 @@
+name: Spawn Stable Branch 🗒️
+
+on: 
+  push:
+    branches: beta
+
+jobs:
+
+    increment:
+      permissions:
+        contents: write
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout Code
+          uses: actions/checkout@v6
+  
+        - name: Setup UV
+          uses: astral-sh/setup-uv@v7
+
+        - name: Dry Run Version Increment
+          run: |
+            uv version --bump beta --dry-run
+  
+        - name: Version Increment
+          run: |
+            uv version --bump beta
+  
+        - name: Verify Version Changed
+          run: git diff --exit-code pyproject.toml || echo "Version updated successfully"
+  
+        - name: Increment Beta Version
+          id: version
+          shell: bash
+          run: |
+            VERSION=$(uv version --short)
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+  
+        - name: Commit & Push Version Change
+          uses: stefanzweifel/git-auto-commit-action@v7
+          with:
+            branch: beta
+            commit_message: "chore: bump beta version to ${{ steps.version.outputs.version }}"
+            file_pattern: pyproject.toml
+
+    release:
+      permissions:
+        contents: write
+      name: Create Branch
+      needs: increment
+      runs-on: ubuntu-latest
+      steps:
+      
+        - name: Checkout Code
+          uses: actions/checkout@v6
+          with:
+            ref: beta
+    
+        - name: Setup UV
+          uses: astral-sh/setup-uv@v7
+
+        - name: Create release branch from version
+          run: |
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git checkout beta
+            git checkout -b release@v$(uv version --short)
+            git push origin release@v$(uv version --short)

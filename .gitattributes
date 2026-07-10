@@ -1,0 +1,17 @@
+# Exclude common non-Python files from language stats
+*.lock linguist-generated=true
+*.json linguist-language=JSON
+*.yaml linguist-language=YAML
+*.yml linguist-language=YAML
+*.toml linguist-language=TOML
+*.md linguist-documentation
+*.txt linguist-documentation
+*.sh linguist-documentation
+*Dockerfile linguist-documentation
+
+# Specific to UV projects
+uv.lock linguist-generated=true
+pyproject.toml linguist-language=TOML
+
+# Exclude all other files from language stats
+* linguist-generated=true
