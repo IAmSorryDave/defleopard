@@ -1,9 +1,17 @@
 import pytest
 from dataclasses import dataclass
 
-def my_test_function(*args, c=2, d="baz", z=False, **kwargs):
-    return locals().copy()
 
+@pytest.fixture
+def my_test_function():
+    def my_function(*args, c=2, d="baz", z=False, **kwargs):
+        return locals().copy()
+    return my_function
+
+
+@pytest.fixture
+def my_test_class():
+    
 
 class MyClass:
     z = True
