@@ -1,4 +1,6 @@
 import pytest
+from dataclasses import dataclass
+from pathlib import Path
 
 @pytest.fixture
 def project_directory_path():
@@ -14,24 +16,30 @@ def project_configuration(project_directory_path):
         configuration = load(f)
     return configuration
 
-
 @pytest.fixture
 def project_metadata(project_configuration):
     return project_configuration.get("project")
-
 
 @pytest.fixture
 def project_name(project_metadata):
     return project_metadata.get("name")
 
-from dataclasses import dataclass
+@pytest.fixture
+def hybrid_module_label(project_name):
+    return f"{project_name}.{Path(__file__).parent.name}.main"
 
 @pytest.fixture
-def my_dummy_function():
+def hybrid_decorator(hybrid_module_label):
+    return pytest.importorskip(hybrid_module_label)
+
+@pytest.fixture
+def my_dummy_function(hybrid_decorator):
+    
+    @hybrid_decorator
     def my_function(*args, c=2, d="baz", z=False, **kwargs):
         return locals().copy()
+        
     return my_function
-
 
 @pytest.fixture
 def my_dummy_class(my_dummy_function):
