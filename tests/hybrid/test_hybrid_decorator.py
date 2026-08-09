@@ -1,4 +1,3 @@
-
 def test_dummy_function(my_dummy_function):
 
     function_namespace = my_dummy_function()
@@ -255,8 +254,8 @@ def test_my_bare_method_with_positional_arg(my_dummy_class):
 
 
 # Tests for subclass methods with positional arguments
-def test_my_method_in_subclass_with_positional_arg(my_dummy_suclass):
-    my_instance = my_dummy_suclass()
+def test_my_method_in_subclass_with_positional_arg(my_dummy_subclass):
+    my_instance = my_dummy_subclass()
     method_namespace = my_instance.my_method("arg1", "arg2")
 
     assert "args" in method_namespace
@@ -266,8 +265,8 @@ def test_my_method_in_subclass_with_positional_arg(my_dummy_suclass):
     assert method_namespace["z"] is True
 
 
-def test_my_classmethod_in_subclass_with_positional_arg(my_dummy_suclass):
-    class_method_namespace = my_dummy_suclass.my_class_method("arg1")
+def test_my_classmethod_in_subclass_with_positional_arg(my_dummy_subclass):
+    class_method_namespace = my_dummy_subclass.my_class_method("arg1")
 
     assert "args" in class_method_namespace
     assert class_method_namespace["args"] == ("arg1",)
@@ -275,8 +274,8 @@ def test_my_classmethod_in_subclass_with_positional_arg(my_dummy_suclass):
     assert class_method_namespace["d"] == "qux"  # From subclass
 
 
-def test_my_static_method_in_subclass_with_positional_arg(my_dummy_suclass):
-    static_method_namespace = my_dummy_suclass.my_static_method("arg1")
+def test_my_static_method_in_subclass_with_positional_arg(my_dummy_subclass):
+    static_method_namespace = my_dummy_subclass.my_static_method("arg1")
 
     assert "args" in static_method_namespace
     assert static_method_namespace["args"] == ("arg1",)
@@ -286,7 +285,7 @@ def test_my_static_method_in_subclass_with_positional_arg(my_dummy_suclass):
 
 # Tests with mixed positional and keyword arguments
 def test_my_function_with_positional_and_keyword_args(my_dummy_function):
-    function_namespace = my_function("arg1", "arg2", c=5, d="custom")
+    function_namespace = my_dummy_function("arg1", "arg2", c=5, d="custom")
 
     assert "args" in function_namespace
     assert function_namespace["args"] == ("arg1", "arg2")
