@@ -139,4 +139,4 @@ jobs:
         with:
           branch: main
           commit_message: "Released v$(uv version)"
-          tag_name: "v$(uv version)"
+          tag_name: v{{ steps.version.output.version }}
