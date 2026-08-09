@@ -1,7 +1,7 @@
 
-def test_dummy_function():
+def test_dummy_function(my_dummy_function):
 
-    function_namespace = my_function()
+    function_namespace = my_dummy_function()
 
     function_variables = function_namespace.keys()
 
@@ -13,9 +13,9 @@ def test_dummy_function():
     assert function_namespace["z"] is False
 
 
-def test_my_bare_method():
+def test_the_dummy_class_bare_method(my_dummy_class):
 
-    bare_method_namespace = MyClass.my_bare_method()
+    bare_method_namespace = my_dummy_class.my_bare_method()
 
     bare_method_variables = bare_method_namespace.keys()
 
@@ -27,9 +27,9 @@ def test_my_bare_method():
     assert bare_method_namespace["z"] is False
 
 
-def test_my_method():
+def test_the_dummy_class_instance_method(my_dummy_class):
 
-    my_instance = MyClass()
+    my_instance = my_dummy_class()
 
     method_namespace = my_instance.my_method()
 
@@ -43,9 +43,9 @@ def test_my_method():
     assert method_namespace["z"] is True
 
 
-def test_my_class_method():
+def test_the_dummy_class_method(my_dummy_class):
 
-    class_method_namespace = MyClass.my_class_method()
+    class_method_namespace = my_dummy_class.my_class_method()
 
     class_method_namespace.keys()
 
@@ -57,9 +57,9 @@ def test_my_class_method():
     assert class_method_namespace["z"] is True
 
 
-def test_my_static_method():
+def test_the_dummy_class_static_method(my_dummy_class):
 
-    static_method_namespace = MyClass.my_static_method()
+    static_method_namespace = my_dummy_class.my_static_method()
 
     static_method_namespace.keys()
 
@@ -71,9 +71,9 @@ def test_my_static_method():
     assert static_method_namespace["z"] is False
 
 
-def test_my_property():
+def test_the_dummy_class_property(my_dummy_class):
 
-    my_instance = MyClass()
+    my_instance = my_dummy_class()
 
     property_namespace = my_instance.my_property
 
@@ -85,9 +85,9 @@ def test_my_property():
     assert property_namespace["z"] is True
 
 
-def test_my_property_in_subclass():
+def test_my_property_in_subclass(my_dummy_subclass):
 
-    my_instance = MySubClass()
+    my_instance = my_dummy_subclass()
 
     property_namespace = my_instance.my_property
 
@@ -99,9 +99,9 @@ def test_my_property_in_subclass():
     assert property_namespace["z"] is True
 
 
-def test_my_method_in_subclass():
+def test_my_method_in_subclass(my_dummy_subclass):
 
-    my_instance = MySubClass()
+    my_instance = my_dummy_subclass()
 
     method_namespace = my_instance.my_method()
 
@@ -115,9 +115,9 @@ def test_my_method_in_subclass():
     assert method_namespace["z"] is True
 
 
-def test_my_classmethod_in_subclass():
+def test_my_classmethod_in_subclass(my_dummy_subclass):
 
-    class_method_namespace = MySubClass.my_class_method()
+    class_method_namespace = my_dummy_subclass.my_class_method()
 
     class_method_namespace.keys()
 
@@ -129,9 +129,9 @@ def test_my_classmethod_in_subclass():
     assert class_method_namespace["z"] is True
 
 
-def test_my_static_method_in_subclass():
+def test_my_static_method_in_subclass(my_dummy_subclass):
 
-    static_method_namespace = MySubClass.my_static_method()
+    static_method_namespace = my_dummy_subclass.my_static_method()
 
     static_method_namespace.keys()
 
@@ -143,9 +143,9 @@ def test_my_static_method_in_subclass():
     assert static_method_namespace["z"] is False
 
 
-def test_my_bare_method_in_subclass():
+def test_my_bare_method_in_subclass(my_dummy_subclass):
 
-    bare_method_namespace = MySubClass.my_bare_method()
+    bare_method_namespace = my_dummy_subclass.my_bare_method()
 
     bare_method_variables = bare_method_namespace.keys()
 
@@ -158,8 +158,8 @@ def test_my_bare_method_in_subclass():
 
 
 # Tests with single positional argument
-def test_my_function_with_positional_arg():
-    function_namespace = my_function("arg1")
+def test_dummy_function_with_positional_arg(my_dummy_function):
+    function_namespace = my_dummy_function("arg1")
 
     assert "args" in function_namespace
     assert function_namespace["args"] == ("arg1",)
@@ -168,8 +168,8 @@ def test_my_function_with_positional_arg():
     assert function_namespace["z"] is False
 
 
-def test_my_function_with_multiple_positional_args():
-    function_namespace = my_function("arg1", "arg2", "arg3")
+def test_dummy_function_with_multiple_positional_args(my_dummy_function):
+    function_namespace = my_dummy_function("arg1", "arg2", "arg3")
 
     assert "args" in function_namespace
     assert function_namespace["args"] == ("arg1", "arg2", "arg3")
@@ -179,8 +179,8 @@ def test_my_function_with_multiple_positional_args():
 
 
 # Tests for methods with positional arguments
-def test_my_method_with_positional_arg():
-    my_instance = MyClass()
+def test_my_method_with_positional_arg(my_dummy_class):
+    my_instance = my_dummy_class()
     method_namespace = my_instance.my_method("arg1")
 
     assert "args" in method_namespace
@@ -190,8 +190,8 @@ def test_my_method_with_positional_arg():
     assert method_namespace["z"] is True
 
 
-def test_my_method_with_multiple_positional_args():
-    my_instance = MyClass()
+def test_my_method_with_multiple_positional_args(my_dummy_class):
+    my_instance = my_dummy_class()
     method_namespace = my_instance.my_method("arg1", "arg2")
 
     assert "args" in method_namespace
@@ -202,8 +202,8 @@ def test_my_method_with_multiple_positional_args():
 
 
 # Tests for class methods with positional arguments
-def test_my_class_method_with_positional_arg():
-    class_method_namespace = MyClass.my_class_method("arg1")
+def test_my_class_method_with_positional_arg(my_dummy_class):
+    class_method_namespace = my_dummy_class.my_class_method("arg1")
 
     assert "args" in class_method_namespace
     assert class_method_namespace["args"] == ("arg1",)
@@ -212,8 +212,8 @@ def test_my_class_method_with_positional_arg():
     assert class_method_namespace["z"] is True
 
 
-def test_my_class_method_with_multiple_positional_args():
-    class_method_namespace = MyClass.my_class_method("arg1", "arg2", "arg3")
+def test_my_class_method_with_multiple_positional_args(my_dummy_class):
+    class_method_namespace = my_dummy_class.my_class_method("arg1", "arg2", "arg3")
 
     assert "args" in class_method_namespace
     assert class_method_namespace["args"] == ("arg1", "arg2", "arg3")
@@ -223,8 +223,8 @@ def test_my_class_method_with_multiple_positional_args():
 
 
 # Tests for static methods with positional arguments
-def test_my_static_method_with_positional_arg():
-    static_method_namespace = MyClass.my_static_method("arg1")
+def test_my_static_method_with_positional_arg(my_dummy_class):
+    static_method_namespace = my_dummy_class.my_static_method("arg1")
 
     assert "args" in static_method_namespace
     assert static_method_namespace["args"] == ("arg1",)
@@ -233,8 +233,8 @@ def test_my_static_method_with_positional_arg():
     assert static_method_namespace["z"] is False
 
 
-def test_my_static_method_with_multiple_positional_args():
-    static_method_namespace = MyClass.my_static_method("arg1", "arg2")
+def test_my_static_method_with_multiple_positional_args(my_dummy_class):
+    static_method_namespace = my_dummy_class.my_static_method("arg1", "arg2")
 
     assert "args" in static_method_namespace
     assert static_method_namespace["args"] == ("arg1", "arg2")
@@ -244,8 +244,8 @@ def test_my_static_method_with_multiple_positional_args():
 
 
 # Tests for bare methods with positional arguments
-def test_my_bare_method_with_positional_arg():
-    bare_method_namespace = MyClass.my_bare_method("arg1")
+def test_my_bare_method_with_positional_arg(my_dummy_class):
+    bare_method_namespace = my_dummy_class.my_bare_method("arg1")
 
     assert "args" in bare_method_namespace
     assert bare_method_namespace["args"] == ("arg1",)
@@ -255,8 +255,8 @@ def test_my_bare_method_with_positional_arg():
 
 
 # Tests for subclass methods with positional arguments
-def test_my_method_in_subclass_with_positional_arg():
-    my_instance = MySubClass()
+def test_my_method_in_subclass_with_positional_arg(my_dummy_suclass):
+    my_instance = my_dummy_suclass()
     method_namespace = my_instance.my_method("arg1", "arg2")
 
     assert "args" in method_namespace
@@ -266,8 +266,8 @@ def test_my_method_in_subclass_with_positional_arg():
     assert method_namespace["z"] is True
 
 
-def test_my_classmethod_in_subclass_with_positional_arg():
-    class_method_namespace = MySubClass.my_class_method("arg1")
+def test_my_classmethod_in_subclass_with_positional_arg(my_dummy_suclass):
+    class_method_namespace = my_dummy_suclass.my_class_method("arg1")
 
     assert "args" in class_method_namespace
     assert class_method_namespace["args"] == ("arg1",)
@@ -275,8 +275,8 @@ def test_my_classmethod_in_subclass_with_positional_arg():
     assert class_method_namespace["d"] == "qux"  # From subclass
 
 
-def test_my_static_method_in_subclass_with_positional_arg():
-    static_method_namespace = MySubClass.my_static_method("arg1")
+def test_my_static_method_in_subclass_with_positional_arg(my_dummy_suclass):
+    static_method_namespace = my_dummy_suclass.my_static_method("arg1")
 
     assert "args" in static_method_namespace
     assert static_method_namespace["args"] == ("arg1",)
@@ -285,7 +285,7 @@ def test_my_static_method_in_subclass_with_positional_arg():
 
 
 # Tests with mixed positional and keyword arguments
-def test_my_function_with_positional_and_keyword_args():
+def test_my_function_with_positional_and_keyword_args(my_dummy_function):
     function_namespace = my_function("arg1", "arg2", c=5, d="custom")
 
     assert "args" in function_namespace
@@ -295,8 +295,8 @@ def test_my_function_with_positional_and_keyword_args():
     assert function_namespace["z"] is False
 
 
-def test_my_method_with_positional_and_keyword_args():
-    my_instance = MyClass()
+def test_my_method_with_positional_and_keyword_args(my_dummy_class):
+    my_instance = my_dummy_class()
     method_namespace = my_instance.my_method("arg1", z=False)
 
     assert "args" in method_namespace
@@ -306,8 +306,8 @@ def test_my_method_with_positional_and_keyword_args():
     assert method_namespace["z"] is False  # Override from class
 
 
-def test_my_dataclass_method_with_positional_and_keyword_args():
-    dataclass_instance = MyDataClass()
+def test_my_dataclass_method_with_positional_and_keyword_args(my_dummy_dataclass):
+    dataclass_instance = my_dummy_dataclass()
     method_namespace = dataclass_instance.my_method("arg1", c=10, z=False)
 
     assert "args" in method_namespace
@@ -317,8 +317,8 @@ def test_my_dataclass_method_with_positional_and_keyword_args():
     assert method_namespace["z"] is False  # Override from dataclass
 
 
-def test_my_dataclass_property_with_positional_and_keyword_args():
-    dataclass_instance = MyDataClass()
+def test_my_dataclass_property_with_positional_and_keyword_args(my_dummy_dataclass):
+    dataclass_instance = my_dummy_dataclass()
     property_namespace = dataclass_instance.my_property
 
     assert "c" in property_namespace
